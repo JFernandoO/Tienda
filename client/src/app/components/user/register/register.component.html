@@ -1,0 +1,42 @@
+<div class="container-fluid bg-light py-3" style="margin-left: 30%;">
+    <form [formGroup]="forma" (ngSubmit)="onSubmit()" >
+        <div class="form-row">
+            <div class="col-md-6 mx-auto">
+                <div class="card card-body">
+                    <h3 class="text-center mb-4">Sign-up</h3>
+                    <!-- <div class="alert alert-danger">
+                        <a class="close font-weight-light" data-dismiss="alert" href="#">×</a>Password is too short.
+                    </div> -->
+                    <fieldset>
+                        <div class="form-group"  [ngClass]="{'has-danger': (forma.get('eMail').valid || forma.get('eMail').required)&& forma.get('eMail').touched }">
+                            <input class="form-control input-lg" placeholder="E-mail Address" formControlName="eMail" type="email">
+                            <div  *ngIf="forma.get('eMail').errors?.required" class="form-group text-danger">
+                                Email Address is required
+                            </div>
+                            <div *ngIf="forma.get('eMail').errors?.pattern" class="form-group text-danger">
+                                <span>Incorrect Format</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Password" formControlName="password" type="password">
+                            <div  *ngIf="forma.get('password').errors?.required" class="form-group text-danger">
+                                Password is required
+                            </div>
+                            <div *ngIf="forma.get('password').errors?.minlength" class="text-danger">
+                                Por lo menos {{forma.get('password').errors?.minlength.requiredLength}} characters
+                            </div>
+                        </div>
+                        <div class="checkbox">
+                            <label class="small">
+                                <input formControlName="terms" type="checkbox">I have read and agree to the <a href="#">terms of service</a>
+                            </label>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block" [disabled]="!forma.valid">Sign Me Up</button>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        {{forma.valid}}
+    </form>
+
+</div>

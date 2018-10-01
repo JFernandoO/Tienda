@@ -1,0 +1,109 @@
+<div class="container" style="display: block;margin-right: auto;margin-left: auto; width: 80%; background-color:lightgrey">
+  <h1 style="color:rgb(240, 95, 64)">Pedido</h1>
+  <p>
+      Servicio para la creación del pedido. Indica tus datos personales y de envio, 
+      selecciona la cantidad de productos a comprar y crea tu solicitud 
+  </p>
+  <form>
+    <div class="form-group">
+      <label for="namePerson">Nombre</label>
+      <input type="text" class="form-control" id="namePerson" required
+      [(ngModel)]="orderShop.namePerson" name="namePerson">
+    </div>
+
+    <div class="form-group">
+      <label for="typePerson">Tipo de Identificación</label>
+      <select [(ngModel)]="orderShop.typePerson" [ngModelOptions]="{standalone: true}"
+            class="form-control" id="typePerson" required>
+        <option *ngFor="let t of typePer" [value]="t" >{{t}}</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="numberPerson">Número Identificación</label>
+      <input type="text" class="form-control" id="numberPerson" required
+      [(ngModel)]="orderShop.numberPerson" name="numberPerson">
+    </div>
+
+    <div class="form-group">
+      <label for="address">Dirección de Envio</label>
+      <input type="text" class="form-control" id="address" required
+      [(ngModel)]="orderShop.address" name="address">
+    </div>
+
+    <div class="form-group">
+      <input type="text"
+      placeholder="Datepicker"
+      class="form-control"
+      [(ngModel)]="orderShop.dateOrder" [ngModelOptions]="{standalone: true}"
+      bsDatepicker>
+    </div>
+
+    <div class="form-group">
+      <timepicker [(ngModel)]="orderShop.timeOrder" [ngModelOptions]="{standalone: true}"></timepicker>
+    </div>
+      
+  </form>
+ <h2 style="color:rgb(240, 95, 64)">Lista de productos</h2>
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Codigo</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let list of products">
+      <td  class="">
+        <div  [style.display]="(list.catalogue == 'Camisas Formales') ? 'visible' : 'none' ">
+          <img src="https://images-na.ssl-images-amazon.com/images/I/61N5AqqoVOL._UX679_.jpg" class="img-thumbnail" style="height:100px;" />
+       </div>
+       <div  [style.display]="(list.catalogue == 'Pantalones Formales') ? 'visible' : 'none' ">
+          <img src="https://li0.rightinthebox.com/images/384x384/201206/bfucij1339585090881.jpg" class="img-thumbnail" style="height:100px;" />
+        </div>
+        <div [style.display]="(list.catalogue == 'Chaquetas') ? 'visible' : 'none' ">
+          <img src="https://images-na.ssl-images-amazon.com/images/I/81XeqJzGKtL._UX679_.jpg" class="img-thumbnail" style="height:100px;" />
+        </div>
+      </td>
+      <td>{{list.id}}</td>
+      
+      <td>
+        {{list.name}}
+      </td>
+      <td>
+        {{list.price | currency}}
+      </td>
+      <td>       
+        <button class="btn btn-success btn-xs plus" (click)="add(list.id)">
+          <i class="glyphicon glyphicon-plus"></i>
+        </button>    
+        {{list.quantity}}     
+        <button class="btn btn-danger btn-xs minus" (click)="del(list.id)">
+          <i class="glyphicon glyphicon-minus"></i>
+        </button>    
+             
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Precio total</td>
+      <td colspan="6" class="text-right"><strong>{{total | currency }}</strong></td>
+    </tr>
+    <tr>
+      <td colspan="6">
+          El precio del transporte no está incluido y dependerá
+          del lugar de entrega, este se deberá cancelar junto con el valor 
+          del pedido en el momento de la entrega.
+      </td>
+    </tr>    
+  </tfoot>
+</table>
+    <button class="btn btn-success pull-right" (click)="sendOrder()">Enviar solicitud</button>
+    <br/><br/><br/>
+</div>
+<diV>&nbsp;</diV>
+
